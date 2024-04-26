@@ -1,0 +1,26 @@
+USE [Test]
+GO
+
+CREATE TABLE Products (
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Categories (
+	Id INT PRIMARY KEY IDENTITY(1, 1),
+	Name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE CategoriesOfProducts (
+	Product INT REFERENCES Products(Id),
+	Category INT REFERENCES Categories(Id),
+);
+
+SELECT 
+	Products.Name AS Product
+    ,Categories.Name AS Category
+	FROM Products
+	LEFT JOIN CategoriesOfProducts ON Products.Id = CategoriesOfProducts.Product
+	LEFT JOIN Categories ON Categories.Id = CategoriesOfProducts.Category
+
+
